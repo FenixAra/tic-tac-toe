@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  scope '/v1' do
+    scope '/users' do
+      post '/register' => 'user#register'
+      post '/login' => 'user#login'
+    end
+  end
+
+  get '/' => 'user#login_page'
+  get '/register' => 'user#register_page'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
