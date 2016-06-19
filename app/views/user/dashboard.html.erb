@@ -13,7 +13,6 @@
     </head>
     
     <body>
-    
         <header>
             <h1> TIC-TAC-TOE </h1>
             <ul id="menu">
@@ -27,30 +26,7 @@
             </ul>
         </header>
 
-        <div id="main">
-
-            <h1>Tic Tac Toe!</h1>
-            
-            <form class="login" method="post" action="/v1/users/login">
-
-                <% flash.each do |key, value| %>
-                    <div class="alert-<%= key %>"><%= value %></div>
-                <% end %>
-                
-                <div class="row email">
-                    <input type="text" id="email" name="email" placeholder="Email" />
-                </div>
-                
-                <div class="row pass">
-                    <input type="password" id="password1" name="password" placeholder="Password" />
-                </div>
-                
-                <input class= "lsub" type="submit" value="Let me play" />
-                <button class = "lsub" onclick="location.href='/register'" > Don't have an account? </button>
-                
-            </form>
-        </div>
-        
+        <p> User ID <%= @user_id %> </p>
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
         <script src="/js/jquery-1.7.2.js"></script>
         <script src="/js/register.js"></script>

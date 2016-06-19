@@ -25,12 +25,20 @@ class UserController < ApplicationController
     request = Net::HTTP::Post.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
     request.body = {'user_name' => user['email'], 'password' => user['password']}.to_json
     response = http.request(request)
-    p response.code
     if response.code == "200"
-      render json: {}
+      session[:user_id] = JSON.parse(response.body)['id']
+      session[:email] = user['email']
+      redirect_to '/dashboard'
     else 
+      flash[:error] = 'Invalid username/password'
       redirect_to '/'
     end
+  end
+
+  def dashboard
+    @user_id = session[:user_id]
+    @email = session[:email]
+    render :action => 'dashboard'
   end
 
   def login_page

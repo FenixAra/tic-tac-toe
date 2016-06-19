@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/' => 'user#login_page'
   get '/register' => 'user#register_page'
+  get '/dashboard' => 'user#dashboard'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
