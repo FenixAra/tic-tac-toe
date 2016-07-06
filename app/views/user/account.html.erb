@@ -13,6 +13,7 @@
     </head>
     
     <body>
+    
         <header>
             <h1> TIC-TAC-TOE </h1>
             <ul id="menu">
@@ -26,7 +27,28 @@
             </ul>
         </header>
 
-        <p> User ID <%= @user_id %> </p>
+        <div id="main">
+
+            <h1>Tic Tac Toe!</h1>
+            
+            <form class="account" method="post" action="/v1/users/edit">
+
+                <% flash.each do |key, value| %>
+                    <div class="alert-<%= key %>"><%= value %></div>
+                <% end %>
+
+                <input type="text" id="email" name="email" placeholder="Email" disabled="true" value="<%= @email%>" />
+
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" />
+
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" />
+                
+                <input class= "lsub" type="submit" value="Update" />
+                <button class = "lsub" onclick="location.href='/changepass'" > Change password? </button>
+                
+            </form>
+        </div>
+        
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
         <script src="/js/jquery-1.7.2.js"></script>
         <script src="/js/register.js"></script>

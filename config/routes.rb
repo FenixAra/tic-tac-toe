@@ -4,12 +4,14 @@ Rails.application.routes.draw do
     scope '/users' do
       post '/register' => 'user#register'
       post '/login' => 'user#login'
+      post '/edit' => 'user#edit'
     end
   end
 
   get '/' => 'user#login_page'
   get '/register' => 'user#register_page'
   get '/dashboard' => 'user#dashboard'
+  get '/account' => 'user#account_page'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

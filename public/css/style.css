@@ -88,6 +88,17 @@ h1{
   border-radius: 15px;
 }
 
+.account {
+   width:440px;
+  height:350px;
+  padding-top: 50px;
+  border: 1px solid #757375;
+  -webkit-box-shadow: 18px 21px 43px 3px rgba(38,36,38,0.91);
+  -moz-box-shadow: 18px 21px 43px 3px rgba(38,36,38,0.91);
+  box-shadow: 18px 21px 43px 3px rgba(38,36,38,0.91);
+  border-radius: 15px;
+}
+
 #main form .row{
   position:relative;
 }
