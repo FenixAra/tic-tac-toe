@@ -20,7 +20,7 @@
               <li><a href="/">Boards</a></li>
               <li><a href="/account">Account</a></li>
               <% if @user_id %> 
-                <li><a href="/">Logout</a></li>
+                <li><a href="/v1/users/logout">Logout</a></li>
               <% else %>
                 <li><a href="/">Login</a></li>
               <% end %>
@@ -29,7 +29,7 @@
 
         <div id="main">
 
-            <h1>Tic Tac Toe!</h1>
+            <h1>Account Details!</h1>
             
             <form class="account" method="post" action="/v1/users/edit">
 
@@ -39,12 +39,12 @@
 
                 <input type="text" id="email" name="email" placeholder="Email" disabled="true" value="<%= @email%>" />
 
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" />
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" value="<%= @first_name%>" />
 
-                <input type="text" id="last_name" name="last_name" placeholder="Last Name" />
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="<%= @last_name%>" />
                 
                 <input class= "lsub" type="submit" value="Update" />
-                <button class = "lsub" onclick="location.href='/changepass'" > Change password? </button>
+                <a class = "lsub-button" href="/change/password" > Change password? </a>
                 
             </form>
         </div>
