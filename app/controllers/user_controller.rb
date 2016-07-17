@@ -1,4 +1,5 @@
 require 'net/http'
+require_relative '../helpers/http'
 
 class UserController < ApplicationController
   def register
@@ -20,6 +21,11 @@ class UserController < ApplicationController
     end
   end
 
+  def logout
+    reset_session
+    redirect_to '/'
+  end
+
   def login
     user = params
     mmobge_url = ENV['MMOBGE_URL'] || 'https://mmobge.herokuapp.com'
@@ -31,8 +37,12 @@ class UserController < ApplicationController
     request.body = {'user_name' => user['email'], 'password' => user['password']}.to_json
     response = http.request(request)
     if response.code == "200"
-      session[:user_id] = JSON.parse(response.body)['id']
+      user_info = JSON.parse(response.body)
+      p user_info
+      session[:user_id] = user_info['id']
       session[:email] = user['email']
+      session[:first_name] = user_info['first_name']
+      session[:last_name] = user_info['last_name']
       redirect_to '/dashboard'
     else 
       flash[:error] = 'Invalid username/password'
@@ -54,10 +64,27 @@ class UserController < ApplicationController
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Post.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
+    session[:first_name] = user['first_name']
+    session[:last_name] = user['last_name']
     request.body = {'id' => session[:user_id], 'user_name' => session[:email], 'email' => session[:email], 'first_name' => user['first_name'], 'last_name' => user['last_name']}.to_json
     response = http.request(request)
     p response.code
     redirect_to '/dashboard'
+  end
+
+  def change_password
+    password_details = params
+    p params
+    mmobge_url = ENV['MMOBGE_URL'] || 'https://mmobge.herokuapp.com'
+    url = mmobge_url + '/v1/users/change/password'
+    response = http_post(url, {'id' => session[:user_id], 'old_password' => password_details[:old_password], 'new_password' => password_details[:password1] } )
+    if response.code == "200"
+      flash[:success] = 'Change Password Success'
+      redirect_to '/account'
+    else
+      flash[:error] = 'Unable to change password: ' + JSON.parse(response.body)["error"]
+      redirect_to '/change/password'
+    end
   end
 
   def login_page
@@ -68,9 +95,16 @@ class UserController < ApplicationController
     render 'user/register'
   end
 
+  def change_password_page
+    render 'user/change-password'
+  end
+
   def account_page
     @user_id = session[:user_id]
     @email = session[:email]
+    @first_name = session[:first_name]
+    @last_name = session[:last_name]
+
     if !@user_id
       render 'user/login'
     else 
