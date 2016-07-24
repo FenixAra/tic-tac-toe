@@ -16,7 +16,13 @@
         <header>
             <h1> TIC-TAC-TOE </h1>
             <ul id="menu">
-              <li><a href="/">Boards</a></li>
+              <% if @board_id %> 
+                <li><a href="/boards/mine">My Board</a></li>
+              <% else %>
+                <li><a href="/boards/new">New Board</a></li>
+              <% end %>
+              
+              <li><a href="/boards">Boards</a></li>
               <li><a href="/account">Account</a></li>
               <% if @user_id %> 
                 <li><a href="/v1/users/logout">Logout</a></li>
@@ -25,8 +31,9 @@
               <% end %>
             </ul>
         </header>
-
-        <p> User ID <%= @user_id %> </p>
+        <div id="content">
+          <h1 align="left"> Welcome <%= @first_name+' '+@last_name %> </h1>
+        </div>
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
         <script src="/js/jquery-1.7.2.js"></script>
         <script src="/js/register.js"></script>

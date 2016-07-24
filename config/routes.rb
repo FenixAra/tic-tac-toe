@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'user#dashboard'
   get '/account' => 'user#account_page'
   get '/change/password' => 'user#change_password_page'
+  get '/boards' => 'boards#boards_list'
+  get '/boards/new' => 'boards#new_board_page'
+  get '/boards/mine' => 'boards#my_board'
 end

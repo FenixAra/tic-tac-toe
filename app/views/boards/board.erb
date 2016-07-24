@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Al3xis</title>
+        
+        <!-- The stylesheet -->
+        
+        <link rel="stylesheet" href="/css/style.css" />
+        
+        <!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        <header>
+            <h1> TIC-TAC-TOE </h1>
+            <ul id="menu">
+              <% if @board_id %> 
+                <li><a href="/boards/mine">My Board</a></li>
+              <% else %>
+                <li><a href="/boards/new">New Board</a></li>
+              <% end %>
+              
+              <li><a href="/boards">Boards</a></li>
+              <li><a href="/account">Account</a></li>
+              <% if @user_id %> 
+                <li><a href="/v1/users/logout">Logout</a></li>
+              <% else %>
+                <li><a href="/">Login</a></li>
+              <% end %>
+            </ul>
+        </header>
+
+        <div id="content">
+          <h1> Tic Tac Toe Board </h1>
+          <div class = "player-info">
+            <h2> PLAYER X </h2>
+            <h2> <%= @p1["first_name"] + ' ' + @p1["last_name"] %> </h2>
+          </div>
+          <div class = "board">
+            <div class="square">
+              <h2><%= @value_map["a1"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["a2"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["a3"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["b1"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["b2"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["b3"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["c1"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["c3"]["value"] %></h2>
+            </div>
+            <div class="square">
+              <h2><%= @value_map["c3"]["value"] %></h2>
+            </div>
+          </div>
+          <div class="player-info">
+            <h2> PLAYER O </h2>
+            <h2> <%= @p2["first_name"] + ' ' + @p2["last_name"] %> </h2>
+          </div>
+        </div>
+
+        <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
+        <script src="/js/jquery-1.7.2.js"></script>
+        <script src="/js/register.js"></script>
+
+             
+    </body>
+</html>
