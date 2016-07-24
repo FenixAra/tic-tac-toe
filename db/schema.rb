@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620012420) do
+ActiveRecord::Schema.define(version: 20160724125234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20160620012420) do
     t.text "p1"
     t.text "p2"
     t.text "status"
+    t.text "first_move"
+    t.text "current_move"
   end
 
   add_index "boards", ["status"], name: "index_boards_on_status", using: :btree

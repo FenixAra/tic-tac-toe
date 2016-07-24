@@ -5,6 +5,7 @@
         <title>Al3xis</title>
         
         <!-- The stylesheet -->
+        
         <link rel="stylesheet" href="/css/style.css" />
         
         <!--[if lt IE 9]>
@@ -13,7 +14,6 @@
     </head>
     
     <body>
-
         <header>
             <h1> TIC-TAC-TOE </h1>
             <ul id="menu">
@@ -22,7 +22,7 @@
               <% else %>
                 <li><a href="/boards/new">New Board</a></li>
               <% end %>
-
+              
               <li><a href="/boards">Boards</a></li>
               <li><a href="/account">Account</a></li>
               <% if @user_id %> 
@@ -33,37 +33,10 @@
             </ul>
         </header>
 
-        <div id="main">
-            
-            <h1>Change Password</h1>
-            
-            <form class="register" method="post" action="/v1/users/change/password">
-
-                <% flash.each do |key, value| %>
-                    <div class="alert-<%= key %>"><%= value %></div>
-                <% end %>
-                
-                <input type="password" id="old_password" name="old_password" placeholder="Old Password" />
-                
-                <div class="row pass">
-                    <input type="password" id="password1" name="password1" placeholder="New Password" />
-                </div>
-                
-                <div class="row pass">
-                    <input type="password" id="password2" name="password2" placeholder="New Password (repeat)" disabled="true" />
-                </div>
-                
-                <!-- The rotating arrow -->
-                <div class="arrowCap"></div>
-                <div class="arrow"></div>
-                
-                <p class="meterText">Password Meter</p>
-                
-                <input class="rsub" type="submit" value="Change Password" />
-                
-            </form>
+        <div id="content">
+          <h1> Available Boards </h1>
         </div>
-        
+
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
         <script src="/js/jquery-1.7.2.js"></script>
         <script src="/js/register.js"></script>

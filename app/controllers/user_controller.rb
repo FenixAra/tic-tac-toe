@@ -53,6 +53,8 @@ class UserController < ApplicationController
   def dashboard
     @user_id = session[:user_id]
     @email = session[:email]
+    @first_name = session[:first_name]
+    @last_name = session[:last_name]
     render :action => 'dashboard'
   end
 
@@ -96,6 +98,10 @@ class UserController < ApplicationController
   end
 
   def change_password_page
+    @user_id = session[:user_id]
+    @email = session[:email]
+    @first_name = session[:first_name]
+    @last_name = session[:last_name]
     render 'user/change-password'
   end
 
