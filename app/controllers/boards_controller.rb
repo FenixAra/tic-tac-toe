@@ -18,6 +18,7 @@ class BoardsController < ApplicationController
     @last_name = session[:last_name]
     @boards = response_json["boards"]
     @count = response_json["count"]
+    @board_id = session[:board_id]
 
     @boards = @boards.map{ |board| board["user_details"] ? (board["user_details"][0]["id"] != session[:user_id] ? board : nil) : nil }.compact
     
@@ -106,7 +107,7 @@ class BoardsController < ApplicationController
     p response
     board_data.update({'p2' => session[:user_id], 'status' => "INGAME"})
 
-    render json: {}
+    redirect_to 'boards/mine'
   end
 
   def set_square

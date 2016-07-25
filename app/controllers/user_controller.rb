@@ -43,6 +43,7 @@ class UserController < ApplicationController
       session[:email] = user['email']
       session[:first_name] = user_info['first_name']
       session[:last_name] = user_info['last_name']
+      @board_id = session[:board_id]
       redirect_to '/dashboard'
     else 
       flash[:error] = 'Invalid username/password'
@@ -55,6 +56,7 @@ class UserController < ApplicationController
     @email = session[:email]
     @first_name = session[:first_name]
     @last_name = session[:last_name]
+    @board_id = session[:board_id]
     render :action => 'dashboard'
   end
 
@@ -67,6 +69,7 @@ class UserController < ApplicationController
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Post.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
     session[:first_name] = user['first_name']
+    @board_id = session[:board_id]
     session[:last_name] = user['last_name']
     request.body = {'id' => session[:user_id], 'user_name' => session[:email], 'email' => session[:email], 'first_name' => user['first_name'], 'last_name' => user['last_name']}.to_json
     response = http.request(request)
@@ -76,6 +79,7 @@ class UserController < ApplicationController
 
   def change_password
     password_details = params
+    @board_id = session[:board_id]
     p params
     mmobge_url = ENV['MMOBGE_URL'] || 'https://mmobge.herokuapp.com'
     url = mmobge_url + '/v1/users/change/password'
@@ -100,6 +104,7 @@ class UserController < ApplicationController
   def change_password_page
     @user_id = session[:user_id]
     @email = session[:email]
+    @board_id = session[:board_id]
     @first_name = session[:first_name]
     @last_name = session[:last_name]
     render 'user/change-password'
@@ -108,6 +113,7 @@ class UserController < ApplicationController
   def account_page
     @user_id = session[:user_id]
     @email = session[:email]
+    @board_id = session[:board_id]
     @first_name = session[:first_name]
     @last_name = session[:last_name]
 
