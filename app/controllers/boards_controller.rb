@@ -18,6 +18,8 @@ class BoardsController < ApplicationController
     @last_name = session[:last_name]
     @boards = response_json["boards"]
     @count = response_json["count"]
+
+    @boards = @boards.map{ |board| board["user_details"] ? (board["user_details"][0]["id"] != session[:user_id] ? board : nil) : nil }.compact
     
     render 'boards/boards'
   end
@@ -82,12 +84,47 @@ class BoardsController < ApplicationController
     p @board_info['board']['user_details']
     @board_data = Board.find(@board_id)
     p @board_data
-    @p1 = @board_info['board']["user_details"].map{ |user| user["id"] == @board_data["p1"] ? user: nil}[0]
-    @p2 = @board_info['board']["user_details"].map{ |user| user["id"] == @board_data["p2"] ? user: nil}[0]
+    @p1 = @board_info['board']["user_details"].map{ |user| user["id"] == @board_data["p1"] ? user: nil}.compact[0]
+    @p2 = @board_info['board']["user_details"].map{ |user| user["id"] == @board_data["p2"] ? user: nil}.compact[0]
 
     p @p1
     p @p2
 
     render 'boards/board'
+  end
+
+  def join_board
+    session[:board_id] = params["id"]
+    mmobge_url = ENV['MMOBGE_URL'] || 'https://mmobge.herokuapp.com'
+    board_url = mmobge_url + '/v1/boards'
+    
+    board_data = Board.find(params["id"])
+    response = http_post(board_url, {'id' => params["id"], 'status' => "INGAME" })
+    p response
+    url = board_url + '/user'
+    response = http_post(url, {'user_id' => session[:user_id], 'board_id' => params["id"]})
+    p response
+    board_data.update({'p2' => session[:user_id], 'status' => "INGAME"})
+
+    render json: {}
+  end
+
+  def set_square
+    board_data = Board.find(session[:board_id])
+    if board_data["current_move"] == session[:user_id]
+        other_user = board_data["p1"] != session[:user_id] ? board_data["p1"] : board_data["p2"]
+        value = 'X'
+        if board_data["p1"] != session[:user_id]
+            value = 'O'
+        end
+        mmobge_url = ENV['MMOBGE_URL'] || 'https://mmobge.herokuapp.com'
+        url = mmobge_url + '/v1/boards/square/state'
+        response = http_post(url, {'board_id' => session[:board_id], 'name' => params["id"], 'state' => {'value' => value}})
+        p response
+        board_data.update({'current_move' => other_user})
+        render json: {}
+    else
+        render json: {}, :status => 400
+    end
   end
 end

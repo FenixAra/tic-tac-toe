@@ -40,44 +40,49 @@
             <h2> <%= @p1["first_name"] + ' ' + @p1["last_name"] %> </h2>
           </div>
           <div class = "board">
-            <div class="square">
+            <div class="square" id="a1">
               <h2><%= @value_map["a1"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="a2">
               <h2><%= @value_map["a2"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="a3">
               <h2><%= @value_map["a3"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="b1">
               <h2><%= @value_map["b1"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="b2">
               <h2><%= @value_map["b2"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="b3">
               <h2><%= @value_map["b3"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="c1">
               <h2><%= @value_map["c1"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="c2">
               <h2><%= @value_map["c3"]["value"] %></h2>
             </div>
-            <div class="square">
+            <div class="square" id="c3">
               <h2><%= @value_map["c3"]["value"] %></h2>
             </div>
           </div>
           <div class="player-info">
             <h2> PLAYER O </h2>
-            <h2> <%= @p2["first_name"] + ' ' + @p2["last_name"] %> </h2>
+            <h2> <%= @p2 ? @p2["first_name"] + ' ' + @p2["last_name"] : "Waiting for player" %> </h2>
           </div>
         </div>
 
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
         <script src="/js/jquery-1.7.2.js"></script>
         <script src="/js/register.js"></script>
-
+        <script src="/js/boards.js"></script>
+        <script type="text/javascript">
+          setTimeout(function () { 
+            location.reload();
+          }, 10 * 1000);
+        </script>
              
     </body>
 </html>
