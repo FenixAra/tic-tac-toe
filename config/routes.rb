@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get '/boards' => 'boards#boards_list'
   get '/boards/new' => 'boards#new_board_page'
   get '/boards/mine' => 'boards#my_board'
+  get '/boards/:id/join' => 'boards#join_board'
+  get '/boards/square/:id' => 'boards#set_square'
 end

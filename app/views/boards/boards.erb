@@ -22,7 +22,7 @@
               <% else %>
                 <li><a href="/boards/new">New Board</a></li>
               <% end %>
-              
+
               <li><a href="/boards">Boards</a></li>
               <li><a href="/account">Account</a></li>
               <% if @user_id %> 
@@ -35,6 +35,22 @@
 
         <div id="content">
           <h1> Available Boards </h1>
+          <div class="table">
+            <table>
+              <tr>
+                <th>Board</th>
+                <th>Player</th>
+                <th></th>
+              </tr>
+              <% @boards.each do |board| %>
+                <tr>
+                  <th> <%= board["id"] %> </th>
+                  <th> <%= board["user_details"].length > 0 ? board["user_details"][0]["user_name"] : "" %> </th>
+                  <th> <a href=<%= "/boards/" + board["id"] + "/join" %>> Join </a> </th>
+                </tr>
+              <% end %>
+            </table>
+          </div>
         </div>
 
         <!-- JavaScript includes - jQuery, the complexify plugin and our own script.js -->
